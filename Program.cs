@@ -1,17 +1,18 @@
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
-using TrilhaApiDesafio.Context;
+using TrilhaApiDesafio.TrilaApiDesafio.Infrastructure.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<OrganizadorContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ConexaoPadrao")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("sistema_de_agendamento")));
 
 builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
